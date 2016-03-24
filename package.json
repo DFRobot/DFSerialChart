@@ -1,0 +1,17 @@
+{
+  "name": "dfserialchart",
+  "version": "1.0.0",
+  "description": "Charting data from serial port",
+  "main": "serialport.js",
+  "scripts": {
+    "test": "node test/dummyServer.js"
+  },
+  "author": "Rex Xia",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^3.3.6",
+    "jquery": "^1.11.3",
+    "serialport": "^2.0.6"
+  },
+  "readme": "README.md"
+}

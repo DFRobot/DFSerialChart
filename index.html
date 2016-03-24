@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Serial Chart</title>
+    <!-- Load css -->
+
+    <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+
+    <!-- Load js -->
+    <script src="node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="canvasjs/canvasjs.min.js"></script>
+
+  </head>
+  <body>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Serial Ports</h3>
+      </div>
+      <div class="panel-body">
+
+        <div class="row">
+          <div class="col-md-2">
+            <div class="input-group">
+              <span class="input-group-addon">Baud Rate</span>
+              <input type="text" class="form-control" placeholder="57600" aria-describedby="basic-addon1" id="baudrate">
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-group" role="group" id="ports"></div>
+
+      </div>
+    </div>
+
+    <div id="chart"></div>
+    <script src="drawCanvas.js"></script>
+
+  </body>
+
+</html>
