@@ -5,10 +5,11 @@
     <!-- Load css -->
 
     <link href="node_modules/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-
+    <link href="bootstrap-switch/dist/css/bootstrap3/bootstrap-switch.min.css" rel="stylesheet" type="text/css">
     <!-- Load js -->
     <script src="node_modules/jquery/dist/jquery.min.js"></script>
     <script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="bootstrap-switch/dist/js/bootstrap-switch.min.js"></script>
     <script src="canvasjs/canvasjs.min.js"></script>
 
   </head>
@@ -24,7 +25,12 @@
           <div class="col-lg-4">
             <div class="input-group">
               <span class="input-group-addon">Baud Rate</span>
-              <input type="text" class="form-control" placeholder="57600" aria-describedby="basic-addon1" id="baudrate"></input>
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Default is 57600, click port name to connect"
+                aria-describedby="basic-addon1"
+                id="baudrate"></input>
 
               <div class="btn-group" role="group" id="ports"></div>
             </div>
@@ -36,19 +42,23 @@
               <input
                 type="text"
                 class="form-control"
-                placeholder="100"
+                placeholder="Default is 100"
                 aria-describedby="basic-addon1"
                 id="maxlength"
                 onchange="changeMaxLength($(this).val()||$(this).attr('placeholder'))"></input>
-              <button type="button" class="btn btn-default" onclick="toggleUpdate()">Start/Stop Data Flow</button>
-
+              <input type="checkbox" checked name="dataFlowControl" data-on-text="Reading Data"  data-off-text="Stop Reading"></input>
             </div>
           </div>
 
           <div class="col-lg-4">
             <div class="input-group">
               <span class="input-group-addon">Write To Serial</span>
-              <input type="text" class="form-control" aria-describedby="basic-addon1" id="dataToWrite"></input>
+              <input
+                type="text"
+                class="form-control"
+                aria-describedby="basic-addon1"
+                id="dataToWrite"
+                placeholder="Content is URL encoded"></input>
 
               <div class="input-group">
                 <button type="button" class="btn btn-default" onclick="writeToSerial($('#dataToWrite').val())">Write</button>
@@ -59,7 +69,46 @@
         </div>
       </div>
 
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Chart Properties
+            <input type="checkbox" unchecked name="chartControl"></input>
+          </h3>
+        </div>
+        <div class="panel-body">
+
+          <div class="row">
+
+            <div class="col-lg-3" id="minmax" hidden="true">
+              <div class="input-group">
+                <span class="input-group-addon">Max</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Max Y-axis value"
+                  aria-describedby="basic-addon1"
+                  id="maxY"
+                  onchange="changeChartRange()"></input>
+              </div>
+              <div class="input-group">
+                <span class="input-group-addon">Min</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Min Y-axis value"
+                  aria-describedby="basic-addon1"
+                  id="minY"
+                  onchange="changeChartRange()"></input>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+
       <div id="chart"></div>
+
       <script src="drawCanvas.js"></script>
 
     </body>
