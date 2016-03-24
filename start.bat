@@ -1,2 +1,2 @@
 start node.exe serialport
-start index.html
+start http://127.0.0.1:23456/index.html
