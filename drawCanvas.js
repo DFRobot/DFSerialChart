@@ -83,6 +83,12 @@
                 };
                 dataPoints[counter].dataPoints.push({x: globalX, y: parseFloat(elem)});
 
+                // shift if length too long
+                var length = dataPoints[counter].dataPoints.length;
+                if (length > maxLength){
+                  dataPoints[counter].dataPoints = dataPoints[counter].dataPoints.splice(length - maxLength, maxLength);
+                }
+
                 counter++;
               });
               globalX++;
@@ -123,6 +129,9 @@
         updating = !updating;
       }
 
+      function changeMaxLength(length){
+        maxLength = length;
+      }
 
       // default action here
       startRead();

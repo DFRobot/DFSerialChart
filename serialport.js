@@ -37,7 +37,9 @@ function initSerialPort(comName, baudRate) {
     disconnectedCallback: function() {
       console.log("serial disconnected!");
       // TODO
-      sp = null;
+      closePort(function(){
+        sp = null;
+      });
     },
     parser: serialPort.parsers.readline("\n")
   }, false);
@@ -135,8 +137,22 @@ function createServer() {
           response.end(comName);
         }
       });
-
     }
+
+    if (parsedURL.pathname === '/close') {
+      console.log(parsedURL);
+      closePort(function(err) {
+        if (err) {
+          console.error(err);
+          response.status(500);
+          response.end(err);
+        } else {
+          sp = null;
+          response.end(comName);
+        }
+      });
+    }
+
 
     var staticFiles = {
       "html": "html",

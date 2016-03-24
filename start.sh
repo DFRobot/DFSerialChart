@@ -1,7 +1,7 @@
 
 if [ `uname` = 'Darwin' ]; then
-  open http://localhost:23456/index.html &
+  open http://127.0.0.1:23456/index.html &
 else
-  xdg-open http://localhost:23456/index.html &
+  xdg-open http://127.0.0.1:23456/index.html &
 fi
 node serialport
