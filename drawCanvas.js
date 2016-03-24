@@ -1,5 +1,5 @@
 
-      var serverURL = 'http://localhost:23456/';
+      var serverURL = 'http://127.0.0.1:23456/';
 
       // dynamic data points
       var dataPoints = [];
@@ -19,6 +19,9 @@
 
       var needInit = true;
       var initFinished = false;
+
+
+      var updating = true;
 
       function initCanvas(lines) {
         needInit = false;
@@ -68,7 +71,7 @@
             }
 
             lines.forEach(function(data) {
-              if (!data || data.length === 0){
+              if (!data || data.length === 0 || !updating){
                 return;
               }
               var array = data.split(',');
@@ -113,6 +116,11 @@
       function connect(button){
         var baudrate = $('#baudrate').val() || $('#baudrate').attr("placeholder");
         _connect(button.html(), baudrate);
+        startRead();
+      }
+
+      function toggleUpdate(){
+        updating = !updating;
       }
 
 
@@ -121,4 +129,5 @@
 
       setInterval(function() {
         listPorts("#ports");
-      }, 1000);
+      }, 5000);
+      listPorts("#ports");
