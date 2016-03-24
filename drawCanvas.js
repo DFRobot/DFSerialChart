@@ -133,6 +133,10 @@
         maxLength = length;
       }
 
+      function writeToSerial(data){
+        $.get(serverURL + "write/" + encodeURI(data));
+      }
+
       // default action here
       startRead();
 

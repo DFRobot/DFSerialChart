@@ -21,7 +21,7 @@
       <div class="panel-body">
 
         <div class="row">
-          <div class="col-lg-3">
+          <div class="col-lg-4">
             <div class="input-group">
               <span class="input-group-addon">Baud Rate</span>
               <input type="text" class="form-control" placeholder="57600" aria-describedby="basic-addon1" id="baudrate"></input>
@@ -30,7 +30,7 @@
             </div>
           </div>
 
-          <div class="col-md-2">
+          <div class="col-lg-4">
             <div class="input-group">
               <span class="input-group-addon">Max Data Length</span>
               <input
@@ -40,9 +40,18 @@
                 aria-describedby="basic-addon1"
                 id="maxlength"
                 onchange="changeMaxLength($(this).val()||$(this).attr('placeholder'))"></input>
+              <button type="button" class="btn btn-default" onclick="toggleUpdate()">Start/Stop Data Flow</button>
+
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="input-group">
+              <span class="input-group-addon">Write To Serial</span>
+              <input type="text" class="form-control" aria-describedby="basic-addon1" id="dataToWrite"></input>
 
               <div class="input-group">
-                <button type="button" class="btn btn-default" onclick="toggleUpdate()">Start/Stop Data Flow</button>
+                <button type="button" class="btn btn-default" onclick="writeToSerial($('#dataToWrite').val())">Write</button>
               </div>
             </div>
           </div>
