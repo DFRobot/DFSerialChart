@@ -52,8 +52,15 @@ The protocol grabs values in comma seperated values(CSV) format.
 
 ### Start service
 
-```javascript
-npm start
+For windows users, double click
+
+```
+start.bat
+```
+
+For linux/Unix based systems and Mac systems, run
+```
+start.sh
 ```
 
 Then navigate your browser to http://localhost:23456, fill in the baud rate then click one of the port button listed.
