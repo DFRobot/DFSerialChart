@@ -73,6 +73,11 @@ function createServer() {
 
   var server = http.createServer(function(request, response) {
     var parsedURL = urlParser.parse(request.url, true);
+
+    if (parsedURL.pathname === '/') {
+      parsedURL.pathname = '/index.html';
+    }
+
     if (parsedURL.pathname.indexOf('/write') === 0) {
       var params = parsedURL.pathname.substring(1).split("/");
       var string;
@@ -97,15 +102,21 @@ function createServer() {
 
     if (parsedURL.pathname === '/read') {
 
+      response.writeHead(200, {
+        "Content-Type": "application/json"
+      });
+
+      if (!buffer.length){
+        response.end("[]");
+        return;
+      }
+
       if (buffer.length > 0 && buffer.lastIndexOf("\n") === (buffer.length - 1)) {
         buffer = buffer.substring(0, buffer.length - 1);
       }
 
       console.log(JSON.stringify(buffer));
 
-      response.writeHead(200, {
-        "Content-Type": "application/json"
-      });
       response.end(JSON.stringify(buffer.split('\n')));
       buffer = "";
     }

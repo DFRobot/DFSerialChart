@@ -6,6 +6,7 @@ var dataPoints = [];
 // chart object
 var chart;
 
+// data sampling function interval object
 var intervalObj;
 
 // serial read frequency
@@ -14,33 +15,20 @@ var samplingSpeed = 100;
 // max data points length
 var maxLength = 100;
 
-var globalX = 0;
+// the global x-axis value counter for consistent plot
+var xAxisCounter = 0;
 
+// init com ports control
 var needInit = true;
 var initFinished = false;
 
-
+// switch for displaying received data or not
 var updating = true;
 
 function initCanvas(lines) {
   needInit = false;
 
-  lines.forEach(function(data) {
-    var array = data.split(',');
-    var counter = 0;
-    var columns = array.forEach(function(elem) {
-      dataPoints[counter] = dataPoints[counter] || {
-        type: "line",
-        dataPoints: []
-      };
-      dataPoints[counter].dataPoints.push({
-        x: globalX,
-        y: parseFloat(elem)
-      });
-      counter++;
-    });
-    globalX++;
-  });
+  populateData(lines);
 
   chart = new CanvasJS.Chart("chart", {
     title: {
@@ -60,9 +48,10 @@ function initCanvas(lines) {
 }
 
 function startRead() {
+  stopRead();
   intervalObj = setInterval(function() {
 
-    $.get(serverURL + "read", function(lines) {
+    $.get(serverURL + "read", { "_": $.now() }, function(lines) {
 
       if (needInit) {
         initCanvas(lines);
@@ -72,41 +61,51 @@ function startRead() {
         return;
       }
 
-      lines.forEach(function(data) {
-        if (!data || data.length === 0 || !updating) {
-          return;
-        }
-        var array = data.split(',');
-        var counter = 0;
-        var columns = array.forEach(function(elem) {
-          dataPoints[counter] = dataPoints[counter] || {
-            type: "line",
-            dataPoints: []
-          };
-          dataPoints[counter].dataPoints.push({
-            x: globalX,
-            y: parseFloat(elem)
-          });
-
-          // shift if length too long
-          var length = dataPoints[counter].dataPoints.length;
-          if (length > maxLength) {
-            dataPoints[counter].dataPoints = dataPoints[counter].dataPoints.splice(length -
-              maxLength, maxLength);
-          }
-
-          counter++;
-        });
-        globalX++;
-      });
+      populateData(lines);
       // console.log(dataPoints);
       chart.render();
     });
   }, samplingSpeed);
 }
 
+function populateData(lines){
+  console.log(lines);
+  lines.forEach(function(data) {
+    if (!data || data.length === 0 || data === '""'|| !updating) {
+      console.log("no data");
+      return;
+    }
+    var array = data.split(',');
+    var counter = 0;
+    var columns = array.forEach(function(elem) {
+      dataPoints[counter] = dataPoints[counter] || {
+        type: "line",
+        showInLegend: true,
+        dataPoints: []
+      };
+      dataPoints[counter].dataPoints.push({
+        x: xAxisCounter,
+        y: parseFloat(elem)
+      });
+
+      // shift if length too long
+      var length = dataPoints[counter].dataPoints.length;
+      if (length > maxLength) {
+        dataPoints[counter].dataPoints = dataPoints[counter].dataPoints.splice(length -
+          maxLength, maxLength);
+      }
+
+      counter++;
+    });
+    xAxisCounter++;
+  });
+}
+
 function stopRead() {
-  clearInterval(intervalObj);
+  if (intervalObj){
+    clearInterval(intervalObj);
+    intervalObj = null;
+  }
 }
 
 function _connect(port, baudrate) {
@@ -150,11 +149,13 @@ function writeToSerial(data) {
 }
 
 function setYRange(min, max) {
+  if(!chart) return;
   chart.options.axisY.viewportMinimum = min;
   chart.options.axisY.viewportMaximum = max;
 }
 
 function resetYRange() {
+  if(!chart) return;
   delete chart.options.axisY.viewportMinimum;
   delete chart.options.axisY.viewportMaximum;
 }
@@ -162,10 +163,16 @@ function resetYRange() {
 // default action here
 startRead();
 
+
 setInterval(function() {
   listPorts("#ports");
 }, 5000);
+
+//kick off first ports query
 listPorts("#ports");
+
+
+// button control & listeners
 
 $("[type='checkbox']").bootstrapSwitch();
 $("[name='dataFlowControl']").on('switchChange.bootstrapSwitch', function(event, state) {
