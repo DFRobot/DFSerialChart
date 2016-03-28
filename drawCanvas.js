@@ -81,6 +81,7 @@ function populateData(lines){
       dataPoints[counter] = dataPoints[counter] || {
         type: "line",
         showInLegend: true,
+        toolTipContent: "{name}: x={x}, y={y}",
         dataPoints: []
       };
       dataPoints[counter].dataPoints.push({
