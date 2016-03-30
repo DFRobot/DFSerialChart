@@ -37,7 +37,7 @@ function initSerialPort(comName, baudRate) {
     disconnectedCallback: function() {
       console.log("serial disconnected!");
       // TODO
-      closePort(function(){
+      closePort(function() {
         sp = null;
       });
     },
@@ -106,7 +106,7 @@ function createServer() {
         "Content-Type": "application/json"
       });
 
-      if (!buffer.length){
+      if (!buffer.length) {
         response.end("[]");
         return;
       }
@@ -164,14 +164,36 @@ function createServer() {
       });
     }
 
+    if (parsedURL.pathname === '/getConfig') {
+      fs.readFile('config.json', function(err, data){
+        if (err){
+          console.error(err);
+          response.end("{}");
+        } else {
+          response.writeHead(200, {
+            "Content-Type": "application/json"
+          });
+          response.end(data);
+        }
+      });
+    }
 
+
+    if (parsedURL.pathname === '/setConfig') {
+      fs.writeFile('config.json', JSON.stringify(parsedURL.query), function(err){
+        if (err){
+          console.error(err);
+          response.end(err);
+        }
+      });
+    }
     var staticFiles = {
       "html": "html",
       "css": "css",
       "js": "javascript"
     };
 
-    Object.keys(staticFiles).forEach(function(fileType){
+    Object.keys(staticFiles).forEach(function(fileType) {
       if (endsWith(parsedURL.pathname, fileType)) {
         fs.readFile(parsedURL.pathname.substring(1), "utf8", function(err, data) {
           response.writeHead(200, {
