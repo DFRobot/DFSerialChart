@@ -69,7 +69,7 @@ function startRead() {
 }
 
 function populateData(lines){
-  console.log(lines);
+  // console.log(lines);
   lines.forEach(function(data) {
     if (!data || data.length === 0 || data === '""'|| !updating) {
       console.log("no data");
@@ -182,10 +182,10 @@ $("[name='dataFlowControl']").on('switchChange.bootstrapSwitch', function(event,
 
 $("[name='chartControl']").on('switchChange.bootstrapSwitch', function(event, state) {
   if (state) {
-    $('#minmax').show();
+    $('#chartControlBody').show();
     changeChartRange();
   } else {
-    $('#minmax').hide();
+    $('#chartControlBody').hide();
     resetYRange();
   }
 });
@@ -194,5 +194,16 @@ $("[name='chartControl']").on('switchChange.bootstrapSwitch', function(event, st
 function changeChartRange() {
   if ($("#minY").val() !== "" && $("#maxY").val() !== "") {
     setYRange($("#minY").val(), $("#maxY").val());
+  }
+}
+
+
+function changeNameChange(){
+  var names = $('#dataNames').val();
+  var nameArray = names.split(",");
+  for (var index in nameArray){
+    if (dataPoints[index]){
+      dataPoints[index].name = nameArray[index];
+    }
   }
 }

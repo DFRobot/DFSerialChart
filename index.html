@@ -46,7 +46,12 @@
                 aria-describedby="basic-addon1"
                 id="maxlength"
                 onchange="changeMaxLength($(this).val()||$(this).attr('placeholder'))"></input>
-              <input type="checkbox" checked name="dataFlowControl" data-on-text="Reading Data"  data-off-text="Stop Reading"></input>
+              <input
+                type="checkbox"
+                checked
+                name="dataFlowControl"
+                data-on-text="Reading Data"
+                data-off-text="Stop Reading"></input>
             </div>
           </div>
 
@@ -75,11 +80,11 @@
             <input type="checkbox" unchecked name="chartControl"></input>
           </h3>
         </div>
-        <div class="panel-body">
+        <div class="panel-body" hidden="true" id="chartControlBody">
 
           <div class="row">
 
-            <div class="col-lg-3" id="minmax" hidden="true">
+            <div class="col-lg-3" id="minmax">
               <div class="input-group">
                 <span class="input-group-addon">Max</span>
                 <input
@@ -99,6 +104,20 @@
                   aria-describedby="basic-addon1"
                   id="minY"
                   onchange="changeChartRange()"></input>
+              </div>
+
+            </div>
+
+            <div class="col-lg-4">
+              <div class="input-group">
+                <span class="input-group-addon">Data names</span>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Example: A0,A1,A2"
+                  aria-describedby="basic-addon1"
+                  id="dataNames"
+                  onchange="changeNameChange()"></input>
               </div>
 
             </div>
