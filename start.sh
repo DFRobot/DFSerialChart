@@ -1,4 +1,4 @@
-node serialport &
+node main &
 
 sleep 1
 
