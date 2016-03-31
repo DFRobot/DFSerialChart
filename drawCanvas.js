@@ -25,8 +25,7 @@ var updating = true;
 
 // config object
 var config = {
-  "maxLength": 100,
-
+  "maxLength": 100
 };
 
 function initCanvas(lines) {
@@ -266,6 +265,7 @@ function readConfig() {
         $('#datanames').val(config.dataNames);
       }
 
+      config.chartControl = !!JSON.parse(config.chartControl);
       if (config.chartControl !== undefined) {
         $("[name='chartControl']").bootstrapSwitch('state', config.chartControl);
         if (config.chartControl) {
