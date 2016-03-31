@@ -25,7 +25,7 @@ serialPort.list(function(err, ports) {
   });
 });
 
-function initSerialPort(comName, baudRate, callback) {
+function initSerialPort(comName, baudRate) {
 
   // only init one port
   if (sp) {
@@ -138,13 +138,11 @@ function createServer() {
       var baudRate = parsedURL.query.baudrate;
       console.log("comName:" + comName + "\tbaudRate:" + baudRate);
       closePort(function(err) {
-        console.log("port closing");
         if (err) {
           console.error(err);
           response.status(500);
           response.end(err);
         } else {
-          console.log("opening port");
           sp = null;
           initSerialPort(comName, baudRate);
           response.end(comName);
@@ -153,7 +151,7 @@ function createServer() {
     }
 
     if (parsedURL.pathname === '/close') {
-      console.log("closing port!!!");
+      console.log(parsedURL);
       closePort(function(err) {
         if (err) {
           console.error(err);
@@ -189,14 +187,6 @@ function createServer() {
         }
       });
     }
-
-
-    if (parsedURL.pathname === '/reset'){
-      response.end();
-      process.exit(666);
-    }
-
-
     var staticFiles = {
       "html": "html",
       "css": "css",
@@ -230,7 +220,7 @@ function createServer() {
 createServer();
 
 
-process.on('exit', function(code) {
+process.on('exit', function() {
   if (sp) {
     sp.close(function(err) {
       if (err) {
@@ -239,9 +229,6 @@ process.on('exit', function(code) {
     });
   } else {
     console.log('no serial port detected, exiting.');
-  }
-  if (code === 666){
-    console.log('restarting...');
   }
 });
 

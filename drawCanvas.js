@@ -1,5 +1,4 @@
 var serverURL = 'http://127.0.0.1:23456/';
-var controlURL = 'http://127.0.0.1:34567/';
 
 // dynamic data points
 var dataPoints = [];
@@ -120,28 +119,16 @@ function _connect(port, baudrate) {
   $.get(serverURL + "connect?port=" + port + "&baudrate=" + baudrate);
 }
 
-function closePort(){
-  $.get(serverURL + "close?_ts=" +$.now() );
-}
-
-function reset(){
-  $.get(controlURL + "manageService?service=stopserial");
-  setTimeout(function(){
-    $.get(controlURL + "manageService?service=startserial");
-  }, 500);
-}
-
 function listPorts(listElementId) {
   $.get(serverURL + "listPorts", function(data) {
-
     if (listElementId.indexOf('#') !== 0) {
       listElementId = "#" + listElementId;
     }
     $(listElementId).html("");
     data.forEach(function(port) {
       $(listElementId).append(
-        '<span><button type="button" class="btn btn-default" onclick="connect($(this))">' + port.comName +
-        "</button></span>");
+        '<button type="button" class="btn btn-default" onclick="connect($(this))">' + port.comName +
+        "</button>");
     });
   });
 }
