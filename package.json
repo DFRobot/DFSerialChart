@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "Charting data from serial port",
   "repository": "https://github.com/DFRobot/DFSerialChart.git",
-  "main": "main.js",
+  "main": "serialport.js",
   "scripts": {
     "test": "node test/dummyServer.js"
   },
