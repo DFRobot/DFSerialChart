@@ -2,6 +2,7 @@
   "name": "dfserialchart",
   "version": "1.0.0",
   "description": "Charting data from serial port",
+  "repository": "https://github.com/DFRobot/DFSerialChart.git",
   "main": "serialport.js",
   "scripts": {
     "test": "node test/dummyServer.js"
@@ -10,7 +11,9 @@
   "license": "ISC",
   "dependencies": {
     "bootstrap": "^3.3.6",
+    "dialog": "^0.1.8",
     "jquery": "^1.11.3",
+    "pm2": "^1.0.2",
     "serialport": "^2.0.6"
   },
   "readme": "README.md"

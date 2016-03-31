@@ -31,9 +31,19 @@
                 placeholder="Default is 57600, click port name to connect"
                 aria-describedby="basic-addon1"
                 id="baudrate"></input>
+            </div>
+
+            <div class="input-group">
+              <span class="input-group-addon">Ports</span>
 
               <div class="btn-group" role="group" id="ports"></div>
             </div>
+            <div class="input-group">
+              <span class="input-group-addon">Port Control</span>
+              <button type="button" class="btn btn-default" onclick="closePort()">Disconnect</button>
+              <button type="button" class="btn btn-default" onclick="reset()">Reset Connection</button>
+            </div>
+
           </div>
 
           <div class="col-lg-4">

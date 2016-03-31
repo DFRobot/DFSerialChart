@@ -1,14 +1,14 @@
 # DFSerialChart
 
-Plotting data from serial port
+Plotting/Chart data from serial port
 
 
 ## Prerequisites
 
-You need `Node` version `4.4.0` or above.
+You need `nodejs` version `4.4.0` or above.
 
 
-You might need to run `npm install` if the package does not run correctly out of the box. This is related to the `serialport` module.
+You might need to run `npm install` if the package does not run correctly out of the box. This is a known limitation related to the `serialport` module.
 
 
 ## Installation
@@ -43,11 +43,14 @@ void loop() {
   Serial.print(analogRead(A3));
   Serial.print(",");
   Serial.println(analogRead(A4));
+  
+  // you want a bit of delay to avoid flooding your serial port.
   delay(100);
 }
 ```
 
 The protocol grabs values in comma seperated values(CSV) format.  
+**New line** is necessary for delimiting groups of data.
 
 
 ### Start service
