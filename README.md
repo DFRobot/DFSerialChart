@@ -3,6 +3,9 @@
 Plotting data from serial port
 
 
+![screenshot](screenshot.png)
+
+
 ## Prerequisites
 
 You need `Node` version `4.4.0` or above.
@@ -65,7 +68,10 @@ start.sh
 
 Then navigate your browser to http://localhost:23456, fill in the baud rate then click one of the port button listed.
 
-![screenshot](screenshot.png)
+You can change your baud rate for your serial device, then click on the device name to reconnect.
 
+You can rename your data series, define your own y-axis range.
 
 You can refresh your web page to get rid of any old data you don't want to see.
+
+If data is not refreshing, try unplug and replug, and turning it off and on again. Old tricks still work.

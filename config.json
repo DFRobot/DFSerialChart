@@ -1,1 +1,1 @@
-{"maxLength":"100","chartControl":"true","min":"","max":""}
+{"maxLength":"100","chartControl":"true","min":"0","max":"500","baudrate":"9600","port":"/dev/cu.usbmodem1411","dataNames":"A0,A1,A2,sin(uptime)"}

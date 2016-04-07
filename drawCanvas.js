@@ -222,7 +222,7 @@ function changeChartRange() {
 
 
 function dataNameChange() {
-  var names = $('#dataNames').val();
+  var names = $('#datanames').val();
   _dataNameChange(names);
   config.dataNames = names;
   saveConfig();
