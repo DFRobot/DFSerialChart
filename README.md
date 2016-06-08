@@ -1,10 +1,13 @@
 # DFSerialChart
 
 Plotting data from serial port
-
+!
 
 ![screenshot](screenshot.png)
 
+Demo with Genuino accelerometer:
+
+![Imgur](http://i.imgur.com/A1e1jh3.gifv)
 
 ## Prerequisites
 
