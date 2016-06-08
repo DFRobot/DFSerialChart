@@ -7,7 +7,7 @@ Plotting data from serial port
 
 Demo with Genuino accelerometer:
 
-[![demo](demo.gif)](https://youtu.be/G43BR6q5kJI)
+[Youtube Demo](https://youtu.be/G43BR6q5kJI)
 
 ## Prerequisites
 
